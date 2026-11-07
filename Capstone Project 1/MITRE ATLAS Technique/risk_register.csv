@@ -1,0 +1,13 @@
+ID,Threat,Identity/Asset,Likelihood(1-5),Impact(1-5),Risk Score (LxI),MITRE ATLAS,Owner,Primary mitigation
+T01,LLM API key exfiltration via indirect prompt injection,Agent (I3)/LLM key (I5),4,4,16,AML.T0051.001,AI Platform Lead,Input/output guardrails; no secrets in context; vault + 90d rotation
+T02,RAG chunk poisoning drives MCP tool call,RAG pipeline (I6)/MCP (I7),4,4,16,AML.T0070,Data Platform Owner,"Source allow-list, chunk sanitisation, per-tool scope authz"
+T03,Agent identity spoofing (fake orchestrator),Agent-to-agent flow,3,5,15,AML.T0073,Security Architect,"Ed25519 signing, zero-trust re-verification"
+T04,Role elevation via prompt engineering,Agent (I3),4,3,12,AML.T0054,AI Platform Lead,Server-side scope check; role never taken from prompt text
+T05,M2M client secret theft / long-lived token replay,M2M client (I4),3,4,12,AML.T0055,IAM Lead,"60-300s TTL, private_key_jwt, secrets manager, rotation"
+T07,Credential stuffing / account takeover of human users,Human user (I1),4,3,12,AML.T0012,IAM Lead,"TOTP MFA, brute-force protection, suspicious IP throttling"
+T08,Over-privileged MCP server tokens (scope creep),MCP server (I7),3,4,12,AML.T0053,IAM Lead,"Per-tool scopes, quarterly access review"
+T12,Tampered JWT / algorithm confusion at API,Internal API,2,5,10,AML.T0073,API Owner,"RS256 only, verify iss/aud/exp via JWKS"
+T09,No audit trail attributing agent actions to users (repudiation),All agent flows,3,3,9,AML.T0053,SOC Manager,"Log sub + agent_id + jti on every call, SIEM"
+T10,LLM unbounded consumption / quota burn,LLM key (I5),3,3,9,AML.T0034,Platform SRE,"Rate limits, volume-spike alert (>20/60s)"
+T06,System prompt extraction reveals internal design,Agent (I3),4,2,8,AML.T0056,AI Platform Lead,"Keep secrets out of prompt, canary + overlap detection"
+T11,Cross-tenant retrieval leakage in RAG,RAG pipeline (I6),2,4,8,AML.T0057,Data Platform Owner,Per-user metadata filter at retrieval
