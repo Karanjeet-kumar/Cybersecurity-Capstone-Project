@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<%- include("partials/header", { user }) %>
+<main class="container">
+  <section class="welcome-section">
+    <div><span class="eyebrow">OVERVIEW</span><h1>Welcome, <%= user.name %> 👋</h1><p class="muted">Your identity and authorization dashboard.</p></div>
+    <span class="status-pill">● Authenticated</span>
+  </section>
+  <section class="stats-grid">
+    <article class="stat-card"><span>Authentication</span><h2>Active</h2><small>Auth0 Universal Login</small></article>
+    <article class="stat-card"><span>Authorization</span><h2>JWT</h2><small>RS256 token validation</small></article>
+    <article class="stat-card"><span>API permissions</span><h2><%= permissions.length %></h2><small>Granted permissions</small></article>
+  </section>
+  <h2 class="section-heading">Application services</h2>
+  <section class="service-grid">
+    <a href="/chat" class="service-card"><div class="service-icon">💬</div><h3>AI Chat</h3><p>Call the protected AI endpoint.</p><span>read:ai-data →</span></a>
+    <a href="/admin" class="service-card"><div class="service-icon">🛡️</div><h3>Admin Panel</h3><p>Access the restricted administration endpoint.</p><span>write:admin →</span></a>
+    <a href="/profile" class="service-card"><div class="service-icon">👤</div><h3>My Profile</h3><p>View your authenticated identity.</p><span>View profile →</span></a>
+    <a href="/sso" class="service-card"><div class="service-icon">🔄</div><h3>Silent SSO</h3><p>Check your existing Auth0 session.</p><span>Test SSO →</span></a>
+  </section>
+  <section class="panel">
+    <h3>Granted permissions</h3>
+    <% if (permissions.length) { permissions.forEach(permission => { %>
+      <span class="permission-tag"><%= permission %></span>
+    <% }); } else { %><p class="muted">No permissions were found in the access token.</p><% } %>
+  </section>
+  <p class="muted token-expiry">Access token expires: <%= new Date(expiresAt).toLocaleString() %></p>
+</main>
+<%- include("partials/footer") %>

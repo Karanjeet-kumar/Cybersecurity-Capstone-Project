@@ -1,0 +1,24 @@
+{
+  "name": "auth0-regular-web-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Server-rendered Auth0 Regular Web Application with PKCE, SSO, JWT and scope-based API authorization",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "api": "nodemon api.js",
+    "rotate": "node rotate.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-oauth2-jwt-bearer": "^1.7.1",
+    "express-session": "^1.18.1",
+    "jose": "^5.9.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}

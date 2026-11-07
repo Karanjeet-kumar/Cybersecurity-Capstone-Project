@@ -1,0 +1,16 @@
+<header class="topbar">
+  <a href="/dashboard" class="brand"><span class="brand-mark">✦</span> SecureNova AI Portal</a>
+  <nav class="nav-links">
+    <a href="/dashboard">Dashboard</a>
+    <a href="/profile">Profile</a>
+    <a href="/chat">AI Chat</a>
+    <a href="/admin">Admin</a>
+  </nav>
+  <div class="user-menu">
+    <% if (user) { %>
+      <% if (user.picture) { %><img src="<%= user.picture %>" class="avatar" alt="Profile"><% } %>
+      <span><%= user.name || user.email %></span>
+      <a class="logout-link" href="/logout">Logout</a>
+    <% } %>
+  </div>
+</header>

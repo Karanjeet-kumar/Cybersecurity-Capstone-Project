@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title><%= title %></title><link rel="stylesheet" href="/css/style.css"></head>
+<body>
+<%- include("partials/header", { user }) %>
+<main class="container">
+  <span class="eyebrow">ACCOUNT INFORMATION</span><h1>My Profile</h1>
+  <section class="panel profile-panel">
+    <% if (user.picture) { %><img src="<%= user.picture %>" class="profile-avatar" alt="Profile"><% } %>
+    <h2><%= user.name %></h2><p class="muted"><%= user.email || "No email provided" %></p>
+    <div class="detail-row"><strong>Auth0 User ID</strong><span><%= user.sub %></span></div>
+    <div class="detail-row"><strong>Email</strong><span><%= user.email || "Not provided" %></span></div>
+    <div class="detail-row"><strong>Permissions</strong><span><%= permissions.join(", ") || "None" %></span></div>
+  </section>
+</main>
+<%- include("partials/footer") %>
