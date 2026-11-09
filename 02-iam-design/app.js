@@ -66,7 +66,7 @@ function createAuthorizationUrl(req, extraParams = {}) {
     response_type: "code",
     client_id: process.env.CLIENT_ID,
     redirect_uri: REDIRECT_URI,
-    scope: "openid profile email read:ai-data write:admin",
+    scope: "openid profile email offline_access read:ai-data write:admin",
     audience: process.env.AUDIENCE,
     code_challenge: challenge,
     code_challenge_method: "S256",
@@ -183,8 +183,10 @@ app.get("/callback", async (req, res) => {
     // Tokens stay server-side; they are never rendered into browser HTML.
     req.session.accessToken = tokens.access_token;
     req.session.idToken = tokens.id_token;
-    // console.log("ACCESS TOKEN:\n", tokens.access_token);
-    // console.log("ID TOKEN:\n", tokens.id_token);
+    req.session.refreshToken = tokens.refresh_token;
+    console.log("ACCESS TOKEN:\n", tokens.access_token);
+    console.log("ID TOKEN:\n", tokens.id_token);
+    console.log("REFRESH TOKEN:\n", tokens.refresh_token);
     req.session.permissions = accessPayload.permissions || [];
     req.session.expiresAt = Date.now() + (tokens.expires_in || 3600) * 1000;
 
