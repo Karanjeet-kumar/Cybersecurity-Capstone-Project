@@ -1,0 +1,11 @@
+define flow check input safety
+  $is_unsafe = execute check_blocked_patterns
+  if $is_unsafe
+    bot refuse unsafe input
+    stop
+
+define bot refuse unsafe input
+  "This request has been blocked: it matches a known attack pattern."
+
+define flow redact credentials
+  $bot_message = execute redact_jwt(text=$bot_message)
